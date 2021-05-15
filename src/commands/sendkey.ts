@@ -1,4 +1,5 @@
 import md5 from 'md5';
+const DOMAIN = process.env.DOMAIN;
 const VERCEL_URL = process.env.VERCEL_URL;
 const TCKEY = process.env.TCKEY;
 
@@ -13,7 +14,7 @@ const sendkey = () => (ctx: any) => {
   const userName = ctx.from.last_name ? `${ctx.from.first_name} ${ctx.from.last_name}` : ctx.from.first_name;
   const sendkey = ctx.from.id +'T'+md5(TCKEY+ctx.from.id);
 
-  const site_url = String(VERCEL_URL).split("-")[0]+'.vercel.app';
+  const site_url = DOMAIN ? DOMAIN : VERCEL_URL;
 
   replyToMessage(ctx, messageId, `${userName} , Your sendkey is 🔑 ${sendkey} \n 
   🚀 Use follow url to send message : \n 
